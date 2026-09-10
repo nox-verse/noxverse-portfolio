@@ -1,0 +1,2 @@
+const fs=require('fs'),path=require('path');
+for(const name of ['index','article','image','video','final']){const html=fs.readFileSync('dist/'+name+'.html','utf8');for(const m of html.matchAll(/(?:href|src)="([^"]+)"/g)){if(!/^(https?:|#)/.test(m[1])&&!fs.existsSync(path.join('dist',m[1])))throw Error(name+': missing '+m[1]);}if(!html.includes('lang="ko"'))throw Error(name+': missing language');console.log(name+': routes and assets OK');}
