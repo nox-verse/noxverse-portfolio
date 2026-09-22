@@ -2,3 +2,25 @@ const stories={feature:['AI 시대의 창작, 좋은 질문에서 시작된다.'
 const viewer=document.getElementById('viewer'),body=document.getElementById('dialog-body');let origin;
 document.querySelectorAll('[data-open]').forEach(button=>button.addEventListener('click',()=>{origin=button;body.replaceChildren();const key=button.dataset.open;if(key==='art1'||key==='art2'){const title=document.createElement('h2');title.id='dialog-title';title.textContent=key==='art1'?'Silent Objects':'Light & Matter';const img=document.createElement('img');img.src='assets/still-life.png';img.alt='크롬 조형물, 검은 구, 트래버틴 큐브의 정물 이미지';if(key==='art2')img.style.filter='grayscale(1)';body.append(title,img);}else{const story=stories[key];const h=document.createElement('h2');h.id='dialog-title';h.textContent=story[0];body.append(h);const badge=document.createElement('small');badge.textContent='한국경제 AI 교육 · 포트폴리오 임시 샘플';body.append(badge);story.slice(1).forEach(text=>{const p=document.createElement('p');p.textContent=text;body.append(p);});}viewer.showModal();}));
 viewer.querySelector('.close').addEventListener('click',()=>viewer.close());viewer.addEventListener('close',()=>origin?.focus());viewer.addEventListener('click',e=>{if(e.target===viewer){const r=viewer.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)viewer.close();}});
+
+const sparklePointer=window.matchMedia('(pointer:fine)');
+const sparkleMotion=window.matchMedia('(prefers-reduced-motion:reduce)');
+if(sparklePointer.matches&&!sparkleMotion.matches){
+  const sparkleColors=['#76513b','#caa77d','#f4f2ed'];
+  let lastSparkle=0;
+  document.addEventListener('pointermove',event=>{
+    const now=performance.now();
+    if(now-lastSparkle<38)return;
+    lastSparkle=now;
+    const sparkle=document.createElement('span');
+    sparkle.className='cursor-spark';
+    sparkle.setAttribute('aria-hidden','true');
+    sparkle.style.left=`${event.clientX}px`;
+    sparkle.style.top=`${event.clientY}px`;
+    sparkle.style.color=sparkleColors[Math.floor(Math.random()*sparkleColors.length)];
+    sparkle.style.setProperty('--drift-x',`${Math.round((Math.random()-.5)*30)}px`);
+    sparkle.style.setProperty('--drift-y',`${Math.round(8+Math.random()*22)}px`);
+    document.body.appendChild(sparkle);
+    sparkle.addEventListener('animationend',()=>sparkle.remove(),{once:true});
+  },{passive:true});
+}
