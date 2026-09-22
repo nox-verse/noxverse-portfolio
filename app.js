@@ -6,7 +6,7 @@ viewer.querySelector('.close').addEventListener('click',()=>viewer.close());view
 const sparklePointer=window.matchMedia('(pointer:fine)');
 const sparkleMotion=window.matchMedia('(prefers-reduced-motion:reduce)');
 if(sparklePointer.matches&&!sparkleMotion.matches){
-  const sparkleColors=['#76513b','#caa77d','#f4f2ed'];
+  const sparkleColor='#fdfba0';
   let lastSparkle=0;
   document.addEventListener('pointermove',event=>{
     const now=performance.now();
@@ -17,7 +17,7 @@ if(sparklePointer.matches&&!sparkleMotion.matches){
     sparkle.setAttribute('aria-hidden','true');
     sparkle.style.left=`${event.clientX}px`;
     sparkle.style.top=`${event.clientY}px`;
-    sparkle.style.color=sparkleColors[Math.floor(Math.random()*sparkleColors.length)];
+    sparkle.style.color=sparkleColor;
     sparkle.style.setProperty('--drift-x',`${Math.round((Math.random()-.5)*30)}px`);
     sparkle.style.setProperty('--drift-y',`${Math.round(8+Math.random()*22)}px`);
     document.body.appendChild(sparkle);
