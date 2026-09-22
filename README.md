@@ -1,9 +1,10 @@
-# JIHOO. AI Archive
+# Nox.verse AI Archive
 
 한국경제 AI 교육 포트폴리오. 샘플 콘텐츠를 담은 반응형 정적 웹사이트입니다.
 
 ## 페이지
 
+- introduce.html / dist/introduce.html: Nox.verse 자기소개와 작업 방향
 - dist/article.html: 기사 목록과 본문 상세 보기
 - dist/image.html: 이미지 갤러리와 확대 보기
 - dist/video.html: 영상 콘셉트 및 스토리보드 (실제 영상은 미등록)
